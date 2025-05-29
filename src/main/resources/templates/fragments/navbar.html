@@ -14,10 +14,16 @@
             <div class="nav navbar-nav">
                 <a th:text="Home" class="nav-item nav-link active" th:href="@{'/home'}" aria-current="page"></a>
                 <a th:text="pizzas" class="nav-item nav-link" th:href="@{'/pizzas'}"></a>
-                <a th:text="ingredients" class="nav-item nav-link" th:href="@{'/ingredients'}"></a>
-                <a th:text="|create pizzas|" class="nav-item nav-link" th:href="@{'/pizzas/create'}"></a>
-                <a th:text="|create ingredients|" class="nav-item nav-link" th:href="@{/ingredients/create}"></a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:text="ingredients" class="nav-item nav-link" th:href="@{'/ingredients'}"></a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:text="|create pizzas|" class="nav-item nav-link" th:href="@{'/pizzas/create'}"></a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:text="|create ingredients|" class="nav-item nav-link" th:href="@{/ingredients/create}"></a>
 
+            </div>
+            <div>
+                Logged User: <span sec:authentication="name"></span>
+                Logged User: <span sec:authentication="principal.authorities"></span>
+                <a class="btn btn-primary" href="/logout">Sign out</a>
+                
             </div>
         </nav>
 

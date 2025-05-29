@@ -33,15 +33,15 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
-    @JoinTable(name="roles_user" ,joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
-    private Set<Role> role;
+    @JoinTable(name="role_user" ,joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
-    public Set<Role> getRole() {
-        return this.role;
+    public Set<Role> getRoles() {
+        return this.roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.role = role;
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
     }
 
 
