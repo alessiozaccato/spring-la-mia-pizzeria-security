@@ -84,7 +84,7 @@ public class Pizza {
     }
 
     @OneToMany(mappedBy = "pizza")
-    @JsonManagedReference
+    // @JsonManagedReference
     private List<SpecialOffer> specialOffers;
 
     @ManyToMany

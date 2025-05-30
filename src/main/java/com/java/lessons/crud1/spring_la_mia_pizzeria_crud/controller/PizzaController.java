@@ -51,9 +51,10 @@ public class PizzaController {
     }
 
     @GetMapping("/searchByName")
-    public String searchByName(@RequestParam(name = "name") String name, Model model) {
+    public String searchByName(@RequestParam(name = "name") String name,Authentication authentication, Model model) {
         List<Pizza> pizzas = pizzaService.findByName(name);
         model.addAttribute("pizzas", pizzas);
+        model.addAttribute("username", authentication.getName());
         return "pizzas/index";
     }
 

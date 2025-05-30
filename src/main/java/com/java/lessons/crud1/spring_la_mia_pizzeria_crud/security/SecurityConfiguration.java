@@ -20,21 +20,22 @@ public class SecurityConfiguration {
         http.authorizeRequests()
                 .requestMatchers(HttpMethod.POST, "/ingredients/create", "/ingredients/edit").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/pizzas/create", "/pizzas/edit").hasAuthority("ADMIN")
-                .requestMatchers( "/ingredients", "/ingredients/**").hasAuthority("ADMIN")
-                .requestMatchers( "/home","/pizzas", "/pizzas/**").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers("/ingredients", "/ingredients/**").hasAuthority("ADMIN")
+                .requestMatchers("/home", "/pizzas", "/pizzas/**").hasAnyAuthority("ADMIN", "USER")
                 .requestMatchers("/**").permitAll()
                 .and().formLogin()
                 .defaultSuccessUrl("/home", true)
                 .and().logout()
-                .and().exceptionHandling();
+                .and().exceptionHandling()
+                .and().csrf().disable();
         return http.build();
 
     }
 
     @Bean
     @SuppressWarnings("deprecation")
-    DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider= new DaoAuthenticationProvider();
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 
         authenticationProvider.setUserDetailsService(userDetailService());
 
@@ -44,12 +45,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder (){
+    PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
-    DatabaseUserDetailService userDetailService(){
+    DatabaseUserDetailService userDetailService() {
         return new DatabaseUserDetailService();
     }
 }
